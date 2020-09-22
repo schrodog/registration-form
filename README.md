@@ -2,7 +2,10 @@
 node app.js
 
 # visit registration page
-localhost:3000
+local: localhost:3000
+public: http://ec2-35-178-105-1.eu-west-2.compute.amazonaws.com:3000
 
 # visit admin page
-localhost:3001
+local: localhost:3001
+public: http://ec2-35-178-105-1.eu-west-2.compute.amazonaws.com:3001/
+
