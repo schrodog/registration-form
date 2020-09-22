@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<head>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/bootstrap.min.js"></script>
+
+  </head>
+
+  <body>
+    <div class="container">
+
+      <h1>Admin Page</h1>
+      <div id="container"></div>
+    </div>
+
+
+    <script>
+
+      const compareFn = (o1,o2) => {
+        if(o1.time > o2.time) return -1;
+        else if (o1.time < o2.time) return 1;
+        return 0
+      }
+
+      const header = `
+        <div class="row">
+          <div class="col border bg-light"><b>Name</b></div>
+          <div class="col border bg-light"><b>Email</b></div>
+          <div class="col border bg-light"><b>Message</b></div>
+          <div class="col border bg-light"><b>Subscribe</b></div>
+          <div class="col border bg-light"><b>Submit time</b></div>
+        </div>
+      `
+
+      const generateRow = data => data.map( i => `
+        <div class="row">
+          <div class="col border bg-light">${i.fullname}</div>
+          <div class="col border bg-light">${i.email}</div>
+          <div class="col border bg-light">${i.message}</div>
+          <div class="col border bg-light">${i.subscribe}</div>
+          <div class="col border bg-light">${new Date(i.time).toLocaleString() }</div>
+        </div>
+      `).reduce((i,j) => i+j, "")
+
+      fetch("/data").then(res => res.json())
+        .then(res => {
+          let data = res.data
+          data.forEach(i => i.time = parseInt(i.time))
+          data.sort(compareFn)          
+
+          document.getElementById("container").innerHTML = header+generateRow(data)
+        })
+
+    </script>
+
+  </body>
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
