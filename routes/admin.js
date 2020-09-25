@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get("/data", (req,res) => {
-  data = []
+  let data = []
 
   fs.createReadStream(path.resolve(__dirname, "..", "data", "result.csv"))
     .pipe(csv.parse({headers: true}))
