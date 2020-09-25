@@ -3,6 +3,7 @@ const router = express.Router();
 const Recaptcha = require('express-recaptcha').RecaptchaV2;
 const fs = require('fs')
 const path = require("path")
+const replaceString = require("replace-string")
 
 const SITE_KEY = '6LdWec0ZAAAAALjWLhtcmAiNe6GeH7m9Q0bcyGW0'
 const SECRET_KEY = '6LdWec0ZAAAAADRZsUiS-ezpO8WMbuueb42sTbFm'
@@ -69,7 +70,7 @@ const validate = data => {
 const saveToFile = data => {
   let {fullname, email, message, subscribe } = data
 
-  message = message.replace('"', '""')
+  message = replaceString(message, '"', '""')
   let str = `\n"${fullname}","${email}","${message}","${subscribe}","${new Date().getTime()}"`
 
   const paths = path.resolve(__dirname,"..", "data", "result.csv")
